@@ -8,8 +8,8 @@ Created on Sat Aug  4 11:28:10 2018
 
 import sys
 
-if '../regularity_lemma/' not in sys.path:
-    sys.path.insert(1, '../regularity_lemma/')
+if './regularity_lemma/' not in sys.path:
+    sys.path.insert(1, './regularity_lemma/')
 
 import szemeredi_lemma_builder as sz
 

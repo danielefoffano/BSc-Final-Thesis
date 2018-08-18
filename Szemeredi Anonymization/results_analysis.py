@@ -19,7 +19,18 @@ from functools import reduce
 #import plotly.graph_objs as go
 from plotly.offline import init_notebook_mode#, plot
 
-def log_log_graph (G):
+def log_log_graph (x1, y1, x2, y2):
+
+    fig = plt.figure()
+    ax1 = fig.add_subplot(111)
+    ax1.scatter(x1, y1, c='b', marker="s", label='first')
+    ax1.scatter(x2, y2, c='r', marker="o", label='second')
+    b = plt.gca()
+    b.set_xscale("log")
+    b.set_yscale("log")
+    plt.show()
+
+def calc_xy(G):
     
     dist = defaultdict(int)
     
@@ -33,12 +44,8 @@ def log_log_graph (G):
     for degree, n_nodes in dist.items():
         x.append(degree)
         y.append(n_nodes)
-
-    plt.scatter(x, y)
-    b = plt.gca()
-    b.set_xscale("log")
-    b.set_yscale("log")
-    plt.show()
+        
+    return x, y
 
 
 init_notebook_mode(connected=True)
@@ -52,7 +59,8 @@ else:
 
 print("########## Prima dell'anonimizzazione ###########")
 af.degree_distribution(G)
-log_log_graph(G)
+#log_log_graph(G)
+x1, y1 = calc_xy(G)
 print("Numero di archi: {}".format(len(nx.edges(G))))
 print("Clustering coefficient: {}".format(nx.average_clustering(G)))
 triangle_vertexes = [n for n in nx.triangles(G).values()]
@@ -75,13 +83,13 @@ print("Number of maximal cliques: {}".format(len(list(nx.find_cliques(G)))))
 matrix = nx.to_numpy_array(G)
 
 #print(matrix)
-n = 8
+n = 5
 while(True):
-    matrix_an = af.anonymize(matrix, 2**n, nx.is_directed(G))
+    matrix_an, epsilon, sze_idx = af.anonymize(matrix, 2**n, nx.is_directed(G))
     
     try:
         G = nx.from_numpy_matrix(matrix_an)
-        print("\nPartizione riuscita con k= {}".format(2**n))
+        print("\nPartizione riuscita con k= {}, epsilon= {}, sze_idx= {}".format(2**n, epsilon, sze_idx))
         break
         
     except AttributeError:
@@ -93,7 +101,9 @@ while(True):
 print("\n########## Dopo l'anonimizzazione ###########")
 
 af.degree_distribution(G)
-log_log_graph(G)
+#log_log_graph(G)
+x2, y2 = calc_xy(G)
+log_log_graph(x1, y1, x2, y2)
 print("Numero di archi: {}".format(len(nx.edges(G))))
 print("Clustering coefficient: {}".format(nx.average_clustering(G)))
 triangle_vertexes = [n for n in nx.triangles(G).values()]

@@ -270,7 +270,7 @@ def anonymize(adj_matrix, k, oriented):
     
     if(len(sz_partition.keys()) == 0):
         
-        return []
+        return [], 0, 0
         print("Could not find any partition of the given cardinality.")
         
     else:
@@ -311,4 +311,4 @@ def anonymize(adj_matrix, k, oriented):
             
             adj_matrix = anonymize_irr_couple(nodes_class[g1], nodes_class[g2], adj_matrix, oriented)
     
-        return adj_matrix
+        return adj_matrix, sz_partition['epsilon'], sz_partition['sze_idx']
