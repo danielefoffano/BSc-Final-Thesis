@@ -45,13 +45,13 @@ def power_partition ( user_k, adj_matrix):
     else:    
         #print("Bravo hai inserito una potenza di 2")
         
-        epsilon_range = [0.25, 0.01]
+        epsilon_range = [0.5, 0.01]
         
         partitions = {}
         
         while(epsilon_range[0] > epsilon_range[1]):
-            
-            alg = sz.generate_szemeredi_reg_lemma_implementation('alon', adj_matrix, epsilon_range[0], True, False, 'indeg_guided', True)
+            #print("provo con epsilon {}".format(epsilon_range[0]))
+            alg = sz.generate_szemeredi_reg_lemma_implementation('alon', adj_matrix, epsilon_range[0], False, True, 'degree_based', False)
             
             is_regular, k, classes, sze_idx, regularity_list, irr_pairs, irr_list = alg.run()
             
@@ -70,7 +70,7 @@ def power_partition ( user_k, adj_matrix):
                 else:
                     
                     # Not the first partition with cardinality k: substitute prev one if this has a better epsilon
-                    if partitions[k]['epsilon'] > epsilon_range[0]: 
+                    if partitions[k]['epsilon'] > epsilon_range[0] and partitions[k]['irr_pairs'] >= irr_pairs: 
                         
                         partitions[k] = {
                                         'k' : k,

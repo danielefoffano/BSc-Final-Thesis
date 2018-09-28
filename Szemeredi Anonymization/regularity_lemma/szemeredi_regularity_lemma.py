@@ -193,4 +193,4 @@ class SzemerediRegularityLemma:
         #self.generate_reduced_sim_mat()
         #return (True, self.k, self.reduced_sim_mat)
         #ipdb.set_trace()
-        return (True, self.k, self.classes, self.sze_idx, self.regularity_list, num_of_irregular_pairs, self.irr_list)
+        return (True, self.k, self.classes, self.sze_idx, self.regularity_list, len(self.irr_list), self.irr_list)

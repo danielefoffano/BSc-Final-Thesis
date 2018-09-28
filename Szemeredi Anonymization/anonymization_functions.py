@@ -43,7 +43,7 @@ def degree_distribution(G):
     
     more_fourty = 0
     
-    for node, degree in nx.degree(G, range(1000)):
+    for node, degree in nx.degree(G, range(len(G.nodes))):
         
         if(degree<10):
         
@@ -84,12 +84,14 @@ def degree_distribution(G):
         * edges : a list of all the set of nodes possible inner edges
 '''
 def density (subset, adj_matrix, oriented):
-    
+    #print(subset)
     n = len(subset)
     inside_edges = 0
     possible_edges = (n*(n-1)) #non è diviso 2 perchè considero tutte le coppie di vertici, e non il numero di archi
     edges = []
     
+    if n == 1: #se c'è un solo nodo nella partizione, non ci sono archi interni
+        return 0, []
     
     if not oriented:
         while(len(subset) != 0):
@@ -270,7 +272,7 @@ def anonymize(adj_matrix, k, oriented):
     
     if(len(sz_partition.keys()) == 0):
         
-        return [], 0, 0
+        return [], 0, 0, 0, [], []
         print("Could not find any partition of the given cardinality.")
         
     else:
@@ -311,4 +313,4 @@ def anonymize(adj_matrix, k, oriented):
             
             adj_matrix = anonymize_irr_couple(nodes_class[g1], nodes_class[g2], adj_matrix, oriented)
     
-        return adj_matrix, sz_partition['epsilon'], sz_partition['sze_idx']
+        return adj_matrix, sz_partition['epsilon'], sz_partition['sze_idx'], sz_partition['irr_pairs'], sz_partition['irr_list'], sz_partition['classes']
