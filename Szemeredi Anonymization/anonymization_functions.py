@@ -258,7 +258,7 @@ def anonymize_irr_couple(group1, group2, adj_matrix, oriented):
 '''
 
 
-def anonymize(adj_matrix, k, oriented):   
+def anonymize(adj_matrix, k, oriented, heuristic):   
     
     '''
         Partitioning the graph using the Szemeredi regularity lemma.
@@ -268,7 +268,7 @@ def anonymize(adj_matrix, k, oriented):
     '''
     
     sz_partition = {}
-    sz_partition = power_partition(k, adj_matrix)
+    sz_partition = power_partition(k, adj_matrix, heuristic)
     
     if(len(sz_partition.keys()) == 0):
         

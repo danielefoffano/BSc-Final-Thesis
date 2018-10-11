@@ -18,15 +18,68 @@ from functools import reduce
 from scipy import spatial
 import time
 import operator
-#import plotly.plotly as py
-#import plotly.graph_objs as go
-from plotly.offline import init_notebook_mode#, plot
+import os
 
 markers = ["s","o","^","p","8","+","h","x"]
 colors = ["b","g","r","y","c","m","k","w"]
 labels = ["before"]
 
-def log_log_graph (XY, markers, colors, labels):
+def crea_cartella(nome_grafo, euristica):
+    now = os.getcwd()
+    
+    os.chdir("..")
+    
+    if not os.path.isdir(os.getcwd()+"/pdf_results"):
+        
+        os.mkdir(os.getcwd()+"/pdf_results")
+    
+    os.chdir("pdf_results")
+    
+    if not os.path.isdir(os.getcwd()+"/"+nome_grafo):
+        
+        os.mkdir(os.getcwd()+"/"+nome_grafo)
+        
+    os.chdir(nome_grafo)
+    
+    if not os.path.isdir(os.getcwd()+"/"+euristica):
+        
+        os.mkdir(os.getcwd()+"/"+euristica)
+        
+    os.chdir(euristica)
+    
+    if os.path.isfile("risultati.txt"):
+        os.remove("risultati.txt")
+        
+    os.chdir(now)
+    
+
+def scrivi_risultato(nome_grafo, euristica, frase):
+    
+    now = os.getcwd()
+    
+    os.chdir("..")
+    
+    os.chdir("pdf_results/" + nome_grafo + "/" + euristica)
+    
+    f = open("risultati.txt", "a+")
+    f.write(frase)
+    f.close()
+    
+    os.chdir(now)
+
+def salva_plot(plot, nome_grafo, nome_file, euristica):
+    
+    now = os.getcwd()
+    
+    os.chdir("..")
+    
+    os.chdir("pdf_results/" + nome_grafo + "/" + euristica)
+    
+    plot.savefig(nome_file+".pdf")
+    
+    os.chdir(now)
+    
+def log_log_graph (XY, markers, colors, labels, graph_name, file_name, euristica):
 
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
@@ -38,9 +91,10 @@ def log_log_graph (XY, markers, colors, labels):
     b.set_xscale("log")
     b.set_yscale("log")
     plt.legend(loc='upper right')
-    plt.show()
+    salva_plot(plt, graph_name, file_name, euristica)
+    #plt.show()
     
-def distance_graph(distances):
+def distance_graph(distances, graph_name, file_name, euristica):
     
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
@@ -52,7 +106,8 @@ def distance_graph(distances):
     plt.legend(loc='upper left', ncol = 4)
     plt.ylim(0,1.3)
     plt.xticks(list(distances.keys()), list(distances.keys()))
-    plt.show()
+    salva_plot(plt, graph_name, file_name, euristica)
+    #plt.show()
 
 def calc_xy(G):
     
@@ -97,14 +152,16 @@ def check_high_degree(nodes, classes, irr_list):
             
     print("\n{} hub su {} sono in partizioni irregolari.".format(in_irr, tot))
 
+#G_init = nx.barabasi_albert_graph(2000, 4) #
+graphs = ["facebook_combined", "politician_edges", "tvshow_edges", "athletes"]
+euristics = ["degree_based", "indeg_guided"]
+name = graphs[0]
+euristic = euristics[1]
+n = 6
 
-init_notebook_mode(connected=True)
+crea_cartella(name, euristic)
 
-#G = nx.barabasi_albert_graph(2000, 4) #
-f = open("testing_graphs/athletes.txt","r")
-#f = open("testing_graphs/tvshow_edges.txt","r")
-#f = open("testing_graphs/facebook_combined.txt","r")
-#f = open("testing_graphs/politician_edges.txt","r")
+f = open("testing_graphs/"+ name +".txt","r")
 G_init=nx.Graph()
 
 nodes = set()
@@ -134,52 +191,54 @@ if nx.is_directed(G_init):
 else:
     print("Il grafo è indiretto.\n")
 
-print("########## Prima dell'anonimizzazione ###########")
-af.degree_distribution(G_init)
-#log_log_graph(G)
-x1, y1 = calc_xy(G_init)
+#print("########## Prima dell'anonimizzazione ###########")
+scrivi_risultato(name, euristic, "########## Prima dell'anonimizzazione ###########\n\n")
 
-print("Numero di archi: {}".format(len(nx.edges(G_init))))
-print("Clustering coefficient: {}".format(nx.average_clustering(G_init)))
+#af.degree_distribution(G_init)
+
+#print("Numero di archi: {}".format(len(nx.edges(G_init))))
+scrivi_risultato(name, euristic, "Numero di archi: {}\n\n".format(len(nx.edges(G_init))))
+
+#print("Clustering coefficient: {}".format(nx.average_clustering(G_init)))
+scrivi_risultato(name, euristic, "Clustering coefficient: {}\n\n".format(nx.average_clustering(G_init)))
 
 triangle_vertexes = [n for n in nx.triangles(G_init).values()]
 triangle_vertexes = reduce(lambda x, y : x + y, triangle_vertexes)
-print("Number of triangles: {}".format(triangle_vertexes/3))
-
-#print("Number of maximal cliques: {}".format(len(list(nx.find_cliques(G)))))
+#print("Number of triangles: {}".format(triangle_vertexes/3))
+scrivi_risultato(name, euristic, "Number of triangles: {}\n\n".format(triangle_vertexes/3))
 
 originalPrank = nx.pagerank(G_init)
 originalPrank = list(originalPrank.values())
 
-#print("Page rank: {}".format(originalPrank.values()))
+#print("Diameter: {}".format(nx.diameter(G_init)))
 
-#print("Center: {}".format(nx.center(G)))
-#print("Diameter: {}".format(nx.diameter(G)))
-#print("Radius: {}".format(nx.radius(G)))
-
-matrix_init = nx.to_numpy_array(G_init)
-
-#print(matrix)
-n = 4
-
+x1, y1 = calc_xy(G_init)
 XY = [(x1,y1)]
 every_ser = XY.copy()
 every_lab = labels.copy()
 distances = defaultdict(int)
 direct = nx.is_directed(G_init)
+matrix_init = nx.to_numpy_array(G_init)
 
 l = 0
+start = time.time()
 while(True):
-    start = time.time()
+    
     matrix = nx.to_numpy_array(G_init)
-    matrix_an, epsilon, sze_idx, irr_pairs, irr_list, classes = af.anonymize(matrix, 2**n, direct)
-    end = time.time()
+    matrix_an, epsilon, sze_idx, irr_pairs, irr_list, classes = af.anonymize(matrix, 2**n, direct, euristic)
+    
     try:
         G = nx.from_numpy_matrix(matrix_an)
         
+        end = time.time()
         print("\n########## Dopo l'anonimizzazione con k = {} ###########".format(2**n))
-        print("\nTempo impiegato : {}".format(end-start))
-        print("\nEpsilon= {}, sze_idx= {}".format(epsilon, sze_idx))
+        scrivi_risultato(name, euristic, "\n########## Dopo l'anonimizzazione con k = {} ###########\n\n".format(2**n))
+        
+        #print("\nTempo impiegato : {}".format(end-start))
+        scrivi_risultato(name, euristic, "Tempo impiegato : {}\n\n".format(end-start))
+        
+        #print("\nEpsilon= {}, sze_idx= {}".format(epsilon, sze_idx))
+        scrivi_risultato(name, euristic, "Epsilon= {}, sze_idx= {}\n\n".format(epsilon, sze_idx))
         
         nodes = G.degree()
         nodes = list(nodes)
@@ -194,25 +253,28 @@ while(True):
         lab = labels.copy()
         lab.append("k = "+str(2**n))
         every_lab.append("k = "+str(2**n))
-        log_log_graph(copy, markers, colors, lab)
+        
+        log_log_graph(copy, markers, colors, lab, name, "k_"+str(2**n), euristic) # Salvo il grafico per questo k
         
         
-        print("Numero di archi: {}".format(len(nx.edges(G))))
-        print("Clustering coefficient: {}".format(nx.average_clustering(G)))
+        #print("Numero di archi: {}".format(len(nx.edges(G))))
+        scrivi_risultato(name, euristic, "Numero di archi: {}\n\n".format(len(nx.edges(G))))
+        #print("Clustering coefficient: {}".format(nx.average_clustering(G)))
+        scrivi_risultato(name, euristic, "Clustering coefficient: {}\n\n".format(nx.average_clustering(G)))
         
         triangle_vertexes = [n for n in nx.triangles(G).values()]
         triangle_vertexes = reduce(lambda x, y : x + y, triangle_vertexes)
-        print("Number of triangles: {}".format(triangle_vertexes/3))
+        #print("Number of triangles: {}".format(triangle_vertexes/3))
+        scrivi_risultato(name, euristic, "Number of triangles: {}\n\n".format(triangle_vertexes/3))
         
-        #print("Number of maximal cliques: {}".format(len(list(nx.find_cliques(G)))))
-        
-        af.degree_distribution(G)
+        #af.degree_distribution(G)
 
         anonymizedPrank = nx.pagerank(G)
         anonymizedPrank = list(anonymizedPrank.values())
         distance = 1-spatial.distance.cosine(originalPrank, anonymizedPrank)
         distances[2**n] = distance
-        print("Page rank distance: {}".format(distance))
+        #print("Page rank distance: {}".format(distance))
+        scrivi_risultato(name, euristic, "Page rank distance: {}\n\n".format(distance))
         
         notR = set()
         
@@ -221,32 +283,25 @@ while(True):
             notR.add(x)
             notR.add(y)
         
-        print("Numero di partizioni irregolari: {}".format(len(notR)))
+        #print("Numero di partizioni irregolari: {}".format(len(notR)))
+        scrivi_risultato(name, euristic, "Numero di partizioni irregolari: {}\n\n".format(len(notR)))
         
-        #print("Center: {}".format(nx.center(G)))
         #print("Diameter: {}".format(nx.diameter(G)))
-        #print("Radius: {}".format(nx.radius(G)))
-#        if l < 1000:
-#            print("Riprovo {}".format(l))
-#            l += 1
-#        else:
-#            l = 0
-#            n = n-1
-            
+        
         n -= 1
         l = 0
+        start = time.time()
         
     except AttributeError:
         print("\n########## Non trovata partizione con k = {} ###########".format(2**n))
-        print("\nTempo impiegato : {}".format(end-start))
+        #print("\nTempo impiegato : {}".format(end-start))
         if l < 1500:
             print("Riprovo {}".format(l))
             l += 1
         else:
             l = 0
             n = n-1
-    
-    #n = n-1
+            
     if n < 2:
         break
         
@@ -255,5 +310,5 @@ while(True):
 
 
 #af.degree_distribution(G)
-log_log_graph(every_ser, markers, colors, every_lab)
-distance_graph(distances)
+log_log_graph(every_ser, markers, colors, every_lab, name, "every_k", euristic) # Salvo il grafico per tutti i k
+distance_graph(distances, name, "Page_rank_distances", euristic) # Salvo il grafico delle distances tra i page rank

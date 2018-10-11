@@ -1,0 +1,93 @@
+########## Prima dell'anonimizzazione ###########
+
+Numero di archi: 88234
+
+Clustering coefficient: 0.6055467186200871
+
+Number of triangles: 1612010.0
+
+
+########## Dopo l'anonimizzazione con k = 64 ###########
+
+Tempo impiegato : 60.87270188331604
+
+Epsilon= 0.17999999999999972, sze_idx= 0.00034327905852707315
+
+Numero di archi: 88486
+
+Clustering coefficient: 0.3116856488041661
+
+Number of triangles: 1022794.0
+
+Page rank distance: 0.9569868163835527
+
+Numero di partizioni irregolari: 58
+
+
+########## Dopo l'anonimizzazione con k = 32 ###########
+
+Tempo impiegato : 21.278420209884644
+
+Epsilon= 0.1499999999999997, sze_idx= 0.00016973835286153728
+
+Numero di archi: 88558
+
+Clustering coefficient: 0.2599653136322377
+
+Number of triangles: 711664.0
+
+Page rank distance: 0.9633266181487362
+
+Numero di partizioni irregolari: 26
+
+
+########## Dopo l'anonimizzazione con k = 16 ###########
+
+Tempo impiegato : 19.968441009521484
+
+Epsilon= 0.10999999999999968, sze_idx= 9.098274023491524e-05
+
+Numero di archi: 88017
+
+Clustering coefficient: 0.2935454877932298
+
+Number of triangles: 806416.0
+
+Page rank distance: 0.9564728153641732
+
+Numero di partizioni irregolari: 7
+
+
+########## Dopo l'anonimizzazione con k = 8 ###########
+
+Tempo impiegato : 21.144224166870117
+
+Epsilon= 0.08999999999999969, sze_idx= 5.943532157899999e-05
+
+Numero di archi: 88420
+
+Clustering coefficient: 0.12760602084393935
+
+Number of triangles: 437579.0
+
+Page rank distance: 0.902212016193505
+
+Numero di partizioni irregolari: 4
+
+
+########## Dopo l'anonimizzazione con k = 4 ###########
+
+Tempo impiegato : 21.03534197807312
+
+Epsilon= 0.01999999999999969, sze_idx= 4.4112809787225794e-05
+
+Numero di archi: 88095
+
+Clustering coefficient: 0.17320754795536886
+
+Number of triangles: 626194.0
+
+Page rank distance: 0.9125857977099422
+
+Numero di partizioni irregolari: 0
+

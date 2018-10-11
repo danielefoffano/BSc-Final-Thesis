@@ -35,7 +35,7 @@ import szemeredi_lemma_builder as sz
             }
 '''
 
-def power_partition ( user_k, adj_matrix):
+def power_partition ( user_k, adj_matrix, heuristic):
     
     if( user_k == 0 or not(user_k & (user_k-1) == 0)): # Check if k is not power of 2
         
@@ -51,7 +51,7 @@ def power_partition ( user_k, adj_matrix):
         
         while(epsilon_range[0] > epsilon_range[1]):
             #print("provo con epsilon {}".format(epsilon_range[0]))
-            alg = sz.generate_szemeredi_reg_lemma_implementation('alon', adj_matrix, epsilon_range[0], False, True, 'degree_based', False)
+            alg = sz.generate_szemeredi_reg_lemma_implementation('alon', adj_matrix, epsilon_range[0], False, True, heuristic, False)
             
             is_regular, k, classes, sze_idx, regularity_list, irr_pairs, irr_list = alg.run()
             
