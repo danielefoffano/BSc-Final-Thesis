@@ -9,7 +9,7 @@ Number of triangles: 174632.0
 
 ########## Dopo l'anonimizzazione con k = 8 ###########
 
-Tempo impiegato : 22.5880868434906
+Tempo impiegato : 21.216376066207886
 
 Epsilon= 0.11999999999999968, sze_idx= 4.828408237435596e-06
 
@@ -26,7 +26,7 @@ Numero di partizioni irregolari: 2
 
 ########## Dopo l'anonimizzazione con k = 4 ###########
 
-Tempo impiegato : 24.207299947738647
+Tempo impiegato : 23.57565712928772
 
 Epsilon= 0.01999999999999969, sze_idx= 2.1433387709154877e-06
 

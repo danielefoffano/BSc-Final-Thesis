@@ -9,68 +9,68 @@ Number of triangles: 174632.0
 
 ########## Dopo l'anonimizzazione con k = 32 ###########
 
-Tempo impiegato : 85.81062006950378
+Tempo impiegato : 45.38966703414917
 
-Epsilon= 0.12999999999999967, sze_idx= 3.6468506404641455e-06
+Epsilon= 0.11999999999999968, sze_idx= 3.135441037475007e-06
 
-Numero di archi: 41702
+Numero di archi: 41764
 
-Clustering coefficient: 0.2738299898093868
+Clustering coefficient: 0.28077969914719547
 
-Number of triangles: 116016.0
+Number of triangles: 117830.0
 
-Page rank distance: 0.9878959901773989
+Page rank distance: 0.9865175684226553
 
-Numero di partizioni irregolari: 6
+Numero di partizioni irregolari: 5
 
 
 ########## Dopo l'anonimizzazione con k = 16 ###########
 
-Tempo impiegato : 27.479851007461548
+Tempo impiegato : 23.13598394393921
 
-Epsilon= 0.12999999999999967, sze_idx= 3.946360898028368e-06
+Epsilon= 0.12999999999999967, sze_idx= 3.1662234915888425e-06
 
-Numero di archi: 41793
+Numero di archi: 41568
 
-Clustering coefficient: 0.1507342817286572
+Clustering coefficient: 0.16718780920669
 
-Number of triangles: 48335.0
+Number of triangles: 73165.0
 
-Page rank distance: 0.9439698652439102
+Page rank distance: 0.954421076173449
 
 Numero di partizioni irregolari: 11
 
 
 ########## Dopo l'anonimizzazione con k = 8 ###########
 
-Tempo impiegato : 48.025115728378296
+Tempo impiegato : 45.19162702560425
 
-Epsilon= 0.11999999999999968, sze_idx= 2.4796650786104557e-06
+Epsilon= 0.11999999999999968, sze_idx= 2.5818802035249767e-06
 
-Numero di archi: 41614
+Numero di archi: 41816
 
-Clustering coefficient: 0.1506543051185452
+Clustering coefficient: 0.1298781012710232
 
-Number of triangles: 65729.0
+Number of triangles: 50719.0
 
-Page rank distance: 0.9460410517130639
+Page rank distance: 0.9293800474971141
 
-Numero di partizioni irregolari: 3
+Numero di partizioni irregolari: 4
 
 
 ########## Dopo l'anonimizzazione con k = 4 ###########
 
-Tempo impiegato : 27.411083936691284
+Tempo impiegato : 25.095279932022095
 
-Epsilon= 0.01999999999999969, sze_idx= 2.1471780855698744e-06
+Epsilon= 0.01999999999999969, sze_idx= 2.142080633498378e-06
 
-Numero di archi: 41708
+Numero di archi: 41677
 
-Clustering coefficient: 0.11588162109761659
+Clustering coefficient: 0.1137335826293657
 
-Number of triangles: 66149.0
+Number of triangles: 66218.0
 
-Page rank distance: 0.9482650993634298
+Page rank distance: 0.9461119007434604
 
 Numero di partizioni irregolari: 0
 

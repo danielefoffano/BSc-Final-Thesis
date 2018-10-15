@@ -19,6 +19,7 @@ from scipy import spatial
 import time
 import operator
 import os
+import shutil
 
 markers = ["s","o","^","p","8","+","h","x"]
 colors = ["b","g","r","y","c","m","k","w"]
@@ -41,10 +42,12 @@ def crea_cartella(nome_grafo, euristica):
         
     os.chdir(nome_grafo)
     
-    if not os.path.isdir(os.getcwd()+"/"+euristica):
+    if os.path.isdir(os.getcwd()+"/"+euristica):
         
-        os.mkdir(os.getcwd()+"/"+euristica)
+        shutil.rmtree(euristica, ignore_errors=True)
+        #os.rmdir(euristica)
         
+    os.mkdir(os.getcwd()+"/"+euristica) 
     os.chdir(euristica)
     
     if os.path.isfile("risultati.txt"):
@@ -91,6 +94,8 @@ def log_log_graph (XY, markers, colors, labels, graph_name, file_name, euristica
     b.set_xscale("log")
     b.set_yscale("log")
     plt.legend(loc='upper right')
+    plt.xlabel("Log('nodes having degree y')")
+    plt.ylabel("Log(degree)")
     salva_plot(plt, graph_name, file_name, euristica)
     #plt.show()
     
@@ -106,6 +111,8 @@ def distance_graph(distances, graph_name, file_name, euristica):
     plt.legend(loc='upper left', ncol = 4)
     plt.ylim(0,1.3)
     plt.xticks(list(distances.keys()), list(distances.keys()))
+    plt.xlabel("k")
+    plt.ylabel("Cosine similarity score")
     salva_plot(plt, graph_name, file_name, euristica)
     #plt.show()
 
@@ -155,9 +162,9 @@ def check_high_degree(nodes, classes, irr_list):
 #G_init = nx.barabasi_albert_graph(2000, 4) #
 graphs = ["facebook_combined", "politician_edges", "tvshow_edges", "athletes"]
 euristics = ["degree_based", "indeg_guided"]
-name = graphs[0]
+name = graphs[2]
 euristic = euristics[1]
-n = 6
+n = 4
 
 crea_cartella(name, euristic)
 
