@@ -1,0 +1,44 @@
+########## Prima dell'anonimizzazione ###########
+
+Numero di archi: 93497
+
+Numero di nodi: 23133
+
+Clustering coefficient: 0.6334130270820677
+
+Number of triangles: 173361.0
+
+
+########## Dopo l'anonimizzazione con k = 8 ###########
+
+Tempo impiegato : 28267.72688317299
+
+Epsilon= 0.05, sze_idx= 7.790023689226166e-08
+
+Numero di archi: 93338
+
+Clustering coefficient: 0.2901537440816447
+
+Number of triangles: 35208.0
+
+Page rank distance: 0.967638731195424
+
+Numero di partizioni irregolari: 0
+
+
+########## Dopo l'anonimizzazione con k = 4 ###########
+
+Tempo impiegato : 287.94281005859375
+
+Epsilon= 0.01, sze_idx= 4.560031962602543e-08
+
+Numero di archi: 93598
+
+Clustering coefficient: 0.17784312005521746
+
+Number of triangles: 64828.0
+
+Page rank distance: 0.967321759074541
+
+Numero di partizioni irregolari: 0
+

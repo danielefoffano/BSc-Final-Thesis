@@ -2,6 +2,8 @@
 
 Numero di archi: 86858
 
+Numero di nodi: 13866
+
 Clustering coefficient: 0.2761883704339428
 
 Number of triangles: 140023.0
@@ -9,51 +11,57 @@ Number of triangles: 140023.0
 
 ########## Dopo l'anonimizzazione con k = 16 ###########
 
-Tempo impiegato : 289.7737629413605
+Tempo impiegato : 88.22774076461792
 
-Epsilon= 0.08999999999999969, sze_idx= 3.919216646819708e-07
+Epsilon= 0.075, sze_idx= 4.157811307772071e-07
 
-Numero di archi: 86746
+Numero di archi: 86945
 
-Clustering coefficient: 0.15429451984116097
+Clustering coefficient: 0.1806385110923458
 
-Number of triangles: 86246.0
+Number of triangles: 92348.0
 
-Page rank distance: 0.985938043347681
+Page rank distance: 0.9923390558410533
 
-Numero di partizioni irregolari: 8
+Numero di partizioni irregolari: 3
+
+Cambiamento medio archi: 0.11216468258536923 +- 0.009114395171586792
 
 
 ########## Dopo l'anonimizzazione con k = 8 ###########
 
-Tempo impiegato : 139.245863199234
+Tempo impiegato : 56.56971096992493
 
-Epsilon= 0.0699999999999997, sze_idx= 3.607003877543375e-07
+Epsilon= 0.075, sze_idx= 3.6259059678684597e-07
 
-Numero di archi: 87054
+Numero di archi: 86848
 
-Clustering coefficient: 0.138503133132817
+Clustering coefficient: 0.11145474214839522
 
-Number of triangles: 83364.0
+Number of triangles: 65161.0
 
-Page rank distance: 0.9889291973568105
+Page rank distance: 0.9802957482935801
 
-Numero di partizioni irregolari: 0
+Numero di partizioni irregolari: 3
+
+Cambiamento medio archi: 0.179914342950563 +- 0.007715432242529371
 
 
 ########## Dopo l'anonimizzazione con k = 4 ###########
 
-Tempo impiegato : 160.0919749736786
+Tempo impiegato : 58.75362706184387
 
-Epsilon= 0.01999999999999969, sze_idx= 3.051014266360472e-07
+Epsilon= 0.01, sze_idx= 3.0721835052553007e-07
 
-Numero di archi: 86878
+Numero di archi: 86917
 
-Clustering coefficient: 0.0751337379332655
+Clustering coefficient: 0.07743832492246717
 
-Number of triangles: 53155.0
+Number of triangles: 54114.0
 
-Page rank distance: 0.976187670980416
+Page rank distance: 0.9769450648202681
 
 Numero di partizioni irregolari: 0
+
+Cambiamento medio archi: 0.25039489741877546 +- 0.0005273170349893608
 

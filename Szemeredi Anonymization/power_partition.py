@@ -45,14 +45,18 @@ def power_partition ( user_k, adj_matrix, heuristic):
     else:    
         #print("Bravo hai inserito una potenza di 2")
         
-        epsilon_range = [0.5, 0.01]
-        
+        epsilon_range = [0.2, 0.175, 0.15, 0.125, 0.1, 0.075, 0.05, 0.025, 0.01] #modificato range per velocizzare
+        #epsilon_range = [0.3, 0.01]
         partitions = {}
         
-        while(epsilon_range[0] > epsilon_range[1]):
-            #print("provo con epsilon {}".format(epsilon_range[0]))
-            alg = sz.generate_szemeredi_reg_lemma_implementation('alon', adj_matrix, epsilon_range[0], False, True, heuristic, False)
+        #while(epsilon_range[0] > epsilon_range[1]):
+        for epsilon in epsilon_range:
+            #print("provo con epsilon {}".format(epsilon))
+            #print("iterazione")
             
+            #alg = sz.generate_szemeredi_reg_lemma_implementation('alon', adj_matrix, epsilon_range[0], False, True, heuristic, False)
+            alg = sz.generate_szemeredi_reg_lemma_implementation('alon', adj_matrix, epsilon, False, True, heuristic, False)
+
             is_regular, k, classes, sze_idx, regularity_list, irr_pairs, irr_list = alg.run()
             
             if is_regular: 
@@ -61,7 +65,8 @@ def power_partition ( user_k, adj_matrix, heuristic):
                     
                     partitions[k] = {
                                         'k' : k,
-                                        'epsilon' : epsilon_range[0],
+                                        #'epsilon' : epsilon_range[0],
+                                        'epsilon' : epsilon,
                                         'classes' : classes,
                                         'sze_idx' : sze_idx,
                                         'irr_pairs' : irr_pairs,
@@ -70,18 +75,21 @@ def power_partition ( user_k, adj_matrix, heuristic):
                 else:
                     
                     # Not the first partition with cardinality k: substitute prev one if this has a better epsilon
-                    if partitions[k]['epsilon'] > epsilon_range[0] and partitions[k]['irr_pairs'] >= irr_pairs: 
+                    
+                    #if partitions[k]['epsilon'] >= epsilon_range[0] and partitions[k]['irr_pairs'] >= irr_pairs:
+                    if partitions[k]['epsilon'] >= epsilon and partitions[k]['irr_pairs'] >= irr_pairs:
                         
                         partitions[k] = {
                                         'k' : k,
-                                        'epsilon' : epsilon_range[0],
+                                        #'epsilon' : epsilon_range[0],
+                                        'epsilon' : epsilon,
                                         'classes' : classes,
                                         'sze_idx' : sze_idx,
                                         'irr_pairs' : irr_pairs,
                                         'irr_list' : irr_list
                                     }
             
-            epsilon_range[0] = epsilon_range[0] - 0.01
+            #epsilon_range[0] = epsilon_range[0] - 0.01 # modificato delta per velocizzare
             
         if (user_k in partitions.keys()):
             

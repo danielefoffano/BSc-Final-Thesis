@@ -1,0 +1,10 @@
+########## Prima dell'anonimizzazione ###########
+
+Numero di archi: 183831
+
+Numero di nodi: 36692
+
+Clustering coefficient: 0.4969825595995024
+
+Number of triangles: 727044.0
+
